@@ -1,0 +1,44 @@
+body
+	font-family: $font-primary
+	font-size: 14px
+	color: $color-primary
+	margin: 0
+	padding: 0
+	background-color: #fff
+	transition: color $speed, background-color $speed
+
+a
+	text-decoration: none
+	color: $color-primary
+	transition: color .3s ease
+	&:visited
+		color: $color-primary
+	&:hover 
+		text-decoration: underline
+
+button
+	cursor: pointer
+
+h1
+	font-weight: normal
+	margin: 0
+	font-size: 22px
+	line-height: 22px
+
+h2
+	margin: 0 0 1em 0
+
+.wrap 
+	padding: 20px 0
+
+.logo:hover
+	text-decoration: none
+
+@media (min-width: $desktop-min)
+
+	.content
+		width: calc(100% - 220px);
+		float: right;
+		margin-left: 220px;
+
+

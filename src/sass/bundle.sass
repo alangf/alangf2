@@ -1,0 +1,33 @@
+.project-list {
+  display: flex;
+  flex-wrap: wrap; }
+.project-card {
+  position: relative;
+  width: calc(50% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s, color 0.3s, opacity 0.3s; }
+  .project-card :nth-child(even) {
+    margin-right: 0; }
+  .project-card .project-card__img {
+    max-width: 100%;
+    display: block; }
+  .project-card .project-card__over {
+    position: absolute;
+    border: solid 1px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.9s;
+    display: flex;
+    align-items: flex-end; }
+  .project-card.project-card_hidden {
+    opacity: 0; }
+  .project-card.project-card_visible {
+    padding: 0; }
+    .project-card.project-card_visible .project-card__over {
+      opacity: 1; }
