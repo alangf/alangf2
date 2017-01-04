@@ -13,6 +13,7 @@ const
 	rollupStream = require('rollup-stream'),
 	source = require('vinyl-source-stream'),
 	buffer = require('vinyl-buffer'),
+	babel = require('rollup-plugin-buble'),
 	rollupCommonJs = require('rollup-plugin-commonjs'),
 	rollupNodeResolve = require('rollup-plugin-node-resolve'),
 	rollupVue = require('rollup-plugin-vue2'),
@@ -73,37 +74,29 @@ gulp.task('rollup', function() {
   	return rollupStream({
     	entry: './src/scripts/main.js',
     	dest: './assets/js/main.js',
-      	sourceMap: true,
       	moduleName: 'app', 
       	plugins: [
-      		rollupVue(),
-      		rollupSass({
-      			output: './src/css/components.css',
-      			options: {
-      				indentedSyntax: true
-      			}
-      		}),
+	      	rollupVue({
+	      		compileTemplate: true
+	      	}),
 		    rollupNodeResolve({
 				jsnext: true,
 				main: true,
 				browser: true
 		    }),
 		    rollupCommonJs({
-				// non-CommonJS modules will be ignored, but you can also
-				// specifically include/exclude files
-				include: ['node_modules/**', 'src/components/**/*.vue'],  // Default: undefined
-				//exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],  // Default: undefined
-
-				// search for files other than .js files (must already
-				// be transpiled by a previous plugin!)
-				extensions: [ '.js', '.vue' ],  // Default: [ '.js' ]
-
-				// if true then uses of `global` won't be dealt with by this plugin
-				ignoreGlobal: false,  // Default: false
-
-				// if false then skip sourceMap generation for CommonJS modules
-				sourceMap: true  // Default: true
+				include: ['node_modules/**', 'src/components/**/*.vue'],  
+				extensions: [ '.js', '.vue' ],
+				ignoreGlobal: false,  
+				sourceMap: true 
  			}),
+      		rollupSass({
+      			output: './src/css/components.css',
+      			options: {
+      				indentedSyntax: true
+      			}
+      		}),
+      		babel(),
 	        replace({
 				'process.env.NODE_ENV': JSON.stringify('development'),
 				'process.env.VUE_ENV': JSON.stringify('browser')
